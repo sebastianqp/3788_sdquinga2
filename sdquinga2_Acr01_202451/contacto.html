@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="contacto.css">
+    <title>Contacto</title>
+
+</head>
+
+<body>
+    <div id="form-container">
+        <h1>Contacto</h1>
+        <form name="FormContacto" onsubmit="return handleSubmit(event)">
+            <label for="email">Correo Electrónico:</label>
+            <p></p>
+            <input type="text" id="email" name="email" placeholder="usuario@mail.com" required>
+
+            <label for="birthdate">Fecha de Nacimiento:</label>
+            <p></p>
+            <input type="date" id="birthdate" name="birthdate" required>
+
+            <label for="phone">Teléfono:</label>
+            <p></p>
+            <input type="text" id="phone" name="phone" placeholder="Teléfono" required>
+
+            <button type="submit" id="submitButton">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        function validar() {
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            const emailPattern = /^[a-z][\w.-]*@[a-z]+\.[a-z]{2,5}$/i;
+            const phoneValid = phone.length === 10 && !isNaN(phone);
+
+            if (!emailPattern.test(email)) {
+                alert('Por favor, ingresa un correo electrónico válido.');
+                return false;
+            }
+
+            if (!phoneValid) {
+                alert('Por favor, ingresa un teléfono válido (10 dígitos).');
+                return false;
+            }
+
+            return true;
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const isValid = validar();
+            if (isValid) {
+                const submitButton = document.getElementById('submitButton');
+                submitButton.disabled = true;
+                submitButton.textContent = "Enviando datos...";
+
+                setTimeout(() => {
+                    alert("Formulario enviado exitosamente.");
+                    event.target.submit(); // Enviar el formulario
+                }, 2000); // Simula un retraso de 2 segundos
+            }
+        }
+    </script>
+</body>
+
+</html>
